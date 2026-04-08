@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../lib/api'
 import { useAuth } from '../context/AuthContext'
 
 export default function ContactMessages() {
@@ -8,12 +8,12 @@ export default function ContactMessages() {
   const headers = { Authorization: `Bearer ${token}` }
 
   useEffect(() => {
-    axios.get('/api/contact', { headers }).then(res => setMessages(res.data))
+    api.get('/api/contact', { headers }).then(res => setMessages(res.data))
   }, [])
 
   const markRead = async (id) => {
     try {
-      await axios.put(`/api/contact/${id}/read`, {}, { headers })
+      await api.put(`/api/contact/${id}/read`, {}, { headers })
       setMessages(messages.map(m => m.id === id ? { ...m, read: true } : m))
     } catch (err) {
       alert('Error: ' + (err.response?.data?.error || err.message))
@@ -23,7 +23,7 @@ export default function ContactMessages() {
   const handleDelete = async (id) => {
     if (!confirm('Delete this message?')) return
     try {
-      await axios.delete(`/api/contact/${id}`, { headers })
+      await api.delete(`/api/contact/${id}`, { headers })
       setMessages(messages.filter(m => m.id !== id))
     } catch (err) {
       alert('Error: ' + (err.response?.data?.error || err.message))

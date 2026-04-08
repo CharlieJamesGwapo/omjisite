@@ -6,7 +6,19 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://omjisolutions.vercel.app',
+  /\.vercel\.app$/,
+]
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true)
+    const ok = allowedOrigins.some(o => typeof o === 'string' ? o === origin : o.test(origin))
+    cb(ok ? null : new Error('CORS blocked'), ok)
+  },
+  credentials: true
+}))
 app.use(express.json());
 
 // Static uploads directory

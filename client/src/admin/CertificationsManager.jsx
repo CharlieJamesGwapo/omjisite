@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../lib/api'
 import { useAuth } from '../context/AuthContext'
 
 export default function CertificationsManager() {
@@ -10,15 +10,15 @@ export default function CertificationsManager() {
   const headers = { Authorization: `Bearer ${token}` }
 
   useEffect(() => { load() }, [])
-  const load = () => axios.get('/api/certifications').then(res => setItems(res.data))
+  const load = () => api.get('/api/certifications').then(res => setItems(res.data))
 
   const resetForm = () => { setForm({ title: '', issuer: '', type: 'completion' }); setEditing(null) }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      if (editing) { await axios.put(`/api/certifications/${editing}`, form, { headers }) }
-      else { await axios.post('/api/certifications', form, { headers }) }
+      if (editing) { await api.put(`/api/certifications/${editing}`, form, { headers }) }
+      else { await api.post('/api/certifications', form, { headers }) }
       resetForm(); load()
     } catch (err) {
       alert('Error: ' + (err.response?.data?.error || err.message))
@@ -28,7 +28,7 @@ export default function CertificationsManager() {
   const handleDelete = async (id) => {
     if (!confirm('Delete?')) return
     try {
-      await axios.delete(`/api/certifications/${id}`, { headers })
+      await api.delete(`/api/certifications/${id}`, { headers })
       load()
     } catch (err) {
       alert('Error: ' + (err.response?.data?.error || err.message))

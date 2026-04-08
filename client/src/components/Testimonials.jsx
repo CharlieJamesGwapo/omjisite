@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Autoplay } from 'swiper/modules'
-import axios from 'axios'
+import api from '../lib/api'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
@@ -10,7 +10,7 @@ export default function Testimonials() {
   const [testimonials, setTestimonials] = useState([])
 
   useEffect(() => {
-    axios.get('/api/testimonials').then(res => setTestimonials(res.data)).catch(() => {})
+    api.get('/api/testimonials').then(res => setTestimonials(res.data)).catch(() => {})
   }, [])
 
   if (testimonials.length === 0) return null

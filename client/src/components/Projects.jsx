@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import axios from 'axios'
+import api from '../lib/api'
 
 const filters = ['All', 'Web Apps', 'Mobile', 'Systems']
 const filterMap = { 'All': null, 'Web Apps': 'webapp', 'Mobile': 'mobile', 'Systems': 'system' }
@@ -206,7 +206,7 @@ export default function Projects() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get('/api/projects')
+    api.get('/api/projects')
       .then(res => setProjects(res.data))
       .catch(() => {})
       .finally(() => setLoading(false))

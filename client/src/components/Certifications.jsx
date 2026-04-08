@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import axios from 'axios'
+import api from '../lib/api'
 
 const typeColors = { completion: '#10b981', recognition: '#f59e0b', participation: '#0ea5e9' }
 const typeEmojis = { completion: '🎓', recognition: '🏆', participation: '📋' }
@@ -10,7 +10,7 @@ export default function Certifications() {
   const [certs, setCerts] = useState([])
 
   useEffect(() => {
-    axios.get('/api/certifications').then(res => setCerts(res.data)).catch(() => {})
+    api.get('/api/certifications').then(res => setCerts(res.data)).catch(() => {})
   }, [])
 
   if (certs.length === 0) return null

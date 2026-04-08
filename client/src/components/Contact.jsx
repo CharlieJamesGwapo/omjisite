@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import axios from 'axios'
+import api from '../lib/api'
 
 const inputStyle = {
   width: '100%',
@@ -24,7 +24,7 @@ export default function Contact() {
     e.preventDefault()
     setLoading(true)
     try {
-      await axios.post('/api/contact', form)
+      await api.post('/api/contact', form)
       setStatus('success')
       setForm({ name: '', email: '', subject: '', message: '' })
     } catch {

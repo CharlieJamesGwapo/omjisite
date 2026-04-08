@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../lib/api'
 import { useAuth } from '../context/AuthContext'
 
 export default function TestimonialsManager() {
@@ -10,15 +10,15 @@ export default function TestimonialsManager() {
   const headers = { Authorization: `Bearer ${token}` }
 
   useEffect(() => { load() }, [])
-  const load = () => axios.get('/api/testimonials').then(res => setItems(res.data))
+  const load = () => api.get('/api/testimonials').then(res => setItems(res.data))
 
   const resetForm = () => { setForm({ clientName: '', company: '', quote: '', rating: 5 }); setEditing(null) }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      if (editing) { await axios.put(`/api/testimonials/${editing}`, form, { headers }) }
-      else { await axios.post('/api/testimonials', form, { headers }) }
+      if (editing) { await api.put(`/api/testimonials/${editing}`, form, { headers }) }
+      else { await api.post('/api/testimonials', form, { headers }) }
       resetForm(); load()
     } catch (err) {
       alert('Error: ' + (err.response?.data?.error || err.message))
@@ -28,7 +28,7 @@ export default function TestimonialsManager() {
   const handleDelete = async (id) => {
     if (!confirm('Delete?')) return
     try {
-      await axios.delete(`/api/testimonials/${id}`, { headers })
+      await api.delete(`/api/testimonials/${id}`, { headers })
       load()
     } catch (err) {
       alert('Error: ' + (err.response?.data?.error || err.message))

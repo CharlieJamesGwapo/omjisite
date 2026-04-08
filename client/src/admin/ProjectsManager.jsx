@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../lib/api'
 import { useAuth } from '../context/AuthContext'
 
 export default function ProjectsManager() {
@@ -17,7 +17,7 @@ export default function ProjectsManager() {
   useEffect(() => { loadProjects() }, [])
 
   const loadProjects = () => {
-    axios.get('/api/projects').then(res => setProjects(res.data))
+    api.get('/api/projects').then(res => setProjects(res.data))
   }
 
   const resetForm = () => {
@@ -30,9 +30,9 @@ export default function ProjectsManager() {
     const data = { ...form, techTags: JSON.stringify(form.techTags.split(',').map(t => t.trim()).filter(Boolean)) }
     try {
       if (editing) {
-        await axios.put(`/api/projects/${editing}`, data, { headers })
+        await api.put(`/api/projects/${editing}`, data, { headers })
       } else {
-        await axios.post('/api/projects', data, { headers })
+        await api.post('/api/projects', data, { headers })
       }
       resetForm()
       loadProjects()
@@ -49,7 +49,7 @@ export default function ProjectsManager() {
   const handleDelete = async (id) => {
     if (!confirm('Delete this project?')) return
     try {
-      await axios.delete(`/api/projects/${id}`, { headers })
+      await api.delete(`/api/projects/${id}`, { headers })
       loadProjects()
     } catch (err) {
       alert('Error deleting project: ' + (err.response?.data?.error || err.message))

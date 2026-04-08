@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import axios from 'axios'
+import api from '../lib/api'
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('')
@@ -13,7 +13,7 @@ export default function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { data } = await axios.post('/api/auth/login', { username, password })
+      const { data } = await api.post('/api/auth/login', { username, password })
       login(data.token)
       navigate('/admin')
     } catch {
