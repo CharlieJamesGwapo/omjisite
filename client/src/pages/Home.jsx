@@ -1,14 +1,33 @@
-function Home() {
+import Navbar from '../components/Navbar'
+import Hero from '../components/Hero'
+import About from '../components/About'
+import Problems from '../components/Problems'
+import Services from '../components/Services'
+import WhyChoose from '../components/WhyChoose'
+import Projects from '../components/Projects'
+import TechStack from '../components/TechStack'
+import VendoSystem from '../components/VendoSystem'
+import Testimonials from '../components/Testimonials'
+import Certifications from '../components/Certifications'
+import Contact from '../components/Contact'
+import Footer from '../components/Footer'
+
+export default function Home() {
   return (
-    <div className="min-h-screen bg-navy flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold gradient-text mb-4">
-          OMji Website
-        </h1>
-        <p className="text-muted text-lg">Coming Soon</p>
-      </div>
-    </div>
+    <>
+      <Navbar />
+      <Hero />
+      <About />
+      <Problems />
+      <Services />
+      <WhyChoose />
+      <Projects />
+      <TechStack />
+      <VendoSystem />
+      <Testimonials />
+      <Certifications />
+      <Contact />
+      <Footer />
+    </>
   )
 }
-
-export default Home
