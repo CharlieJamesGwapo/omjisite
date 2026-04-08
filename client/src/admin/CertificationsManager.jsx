@@ -16,9 +16,13 @@ export default function CertificationsManager() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (editing) { await axios.put(`/api/certifications/${editing}`, form, { headers }) }
-    else { await axios.post('/api/certifications', form, { headers }) }
-    resetForm(); load()
+    try {
+      if (editing) { await axios.put(`/api/certifications/${editing}`, form, { headers }) }
+      else { await axios.post('/api/certifications', form, { headers }) }
+      resetForm(); load()
+    } catch (err) {
+      alert('Error: ' + (err.response?.data?.error || err.message))
+    }
   }
 
   const handleDelete = async (id) => {

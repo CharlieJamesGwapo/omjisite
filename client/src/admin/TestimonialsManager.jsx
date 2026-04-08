@@ -16,9 +16,13 @@ export default function TestimonialsManager() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (editing) { await axios.put(`/api/testimonials/${editing}`, form, { headers }) }
-    else { await axios.post('/api/testimonials', form, { headers }) }
-    resetForm(); load()
+    try {
+      if (editing) { await axios.put(`/api/testimonials/${editing}`, form, { headers }) }
+      else { await axios.post('/api/testimonials', form, { headers }) }
+      resetForm(); load()
+    } catch (err) {
+      alert('Error: ' + (err.response?.data?.error || err.message))
+    }
   }
 
   const handleDelete = async (id) => {
