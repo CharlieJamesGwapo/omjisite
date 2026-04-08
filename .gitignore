@@ -8,3 +8,5 @@ server/uploads/*
 server/.env
 .DS_Store
 .superpowers/
+*.png
+*.jpeg
