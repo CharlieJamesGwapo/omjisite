@@ -43,13 +43,17 @@ export default function ProjectsManager() {
 
   const handleEdit = (p) => {
     setEditing(p.id)
-    setForm({ ...p, techTags: p.techTags?.join(', ') || '' })
+    setForm({ ...p, techTags: Array.isArray(p.techTags) ? p.techTags.join(', ') : '' })
   }
 
   const handleDelete = async (id) => {
     if (!confirm('Delete this project?')) return
-    await axios.delete(`/api/projects/${id}`, { headers })
-    loadProjects()
+    try {
+      await axios.delete(`/api/projects/${id}`, { headers })
+      loadProjects()
+    } catch (err) {
+      alert('Error deleting project: ' + (err.response?.data?.error || err.message))
+    }
   }
 
   return (

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'omji_secret_key';
+const JWT_SECRET = process.env.JWT_SECRET || 'omji-dev-secret-change-in-production';
 
 const auth = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -18,5 +18,4 @@ const auth = (req, res, next) => {
   }
 };
 
-module.exports = auth;
-module.exports.JWT_SECRET = JWT_SECRET;
+module.exports = { auth, JWT_SECRET };

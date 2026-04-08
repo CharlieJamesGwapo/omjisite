@@ -12,14 +12,22 @@ export default function ContactMessages() {
   }, [])
 
   const markRead = async (id) => {
-    await axios.put(`/api/contact/${id}/read`, {}, { headers })
-    setMessages(messages.map(m => m.id === id ? { ...m, read: true } : m))
+    try {
+      await axios.put(`/api/contact/${id}/read`, {}, { headers })
+      setMessages(messages.map(m => m.id === id ? { ...m, read: true } : m))
+    } catch (err) {
+      alert('Error: ' + (err.response?.data?.error || err.message))
+    }
   }
 
   const handleDelete = async (id) => {
     if (!confirm('Delete this message?')) return
-    await axios.delete(`/api/contact/${id}`, { headers })
-    setMessages(messages.filter(m => m.id !== id))
+    try {
+      await axios.delete(`/api/contact/${id}`, { headers })
+      setMessages(messages.filter(m => m.id !== id))
+    } catch (err) {
+      alert('Error: ' + (err.response?.data?.error || err.message))
+    }
   }
 
   return (

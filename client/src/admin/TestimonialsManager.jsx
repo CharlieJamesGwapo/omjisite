@@ -23,7 +23,12 @@ export default function TestimonialsManager() {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete?')) return
-    await axios.delete(`/api/testimonials/${id}`, { headers }); load()
+    try {
+      await axios.delete(`/api/testimonials/${id}`, { headers })
+      load()
+    } catch (err) {
+      alert('Error: ' + (err.response?.data?.error || err.message))
+    }
   }
 
   return (

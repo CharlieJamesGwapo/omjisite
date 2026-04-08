@@ -63,6 +63,12 @@ export default function AdminDashboard() {
                 {tab}
               </button>
             ))}
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 rounded-lg text-sm whitespace-nowrap text-red-400 border border-red-400/30"
+            >
+              Logout
+            </button>
           </div>
 
           {activeTab === 'Projects' && <ProjectsManager />}
