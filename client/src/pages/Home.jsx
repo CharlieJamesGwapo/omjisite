@@ -6,7 +6,6 @@ import Services from '../components/Services'
 import WhyChoose from '../components/WhyChoose'
 import Projects from '../components/Projects'
 import TechStack from '../components/TechStack'
-import VendoSystem from '../components/VendoSystem'
 import Testimonials from '../components/Testimonials'
 import Certifications from '../components/Certifications'
 import Contact from '../components/Contact'
@@ -23,7 +22,6 @@ export default function Home() {
       <WhyChoose />
       <Projects />
       <TechStack />
-      <VendoSystem />
       <Testimonials />
       <Certifications />
       <Contact />

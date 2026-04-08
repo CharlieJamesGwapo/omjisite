@@ -48,7 +48,7 @@ export default function Hero() {
               className="max-w-lg mx-auto lg:mx-0 mb-8 leading-relaxed"
               style={{ color: '#6b7280' }}
             >
-              From custom websites and mobile apps to WiFi vendo systems — OMji delivers
+              From custom websites and mobile apps to enterprise systems — OMji delivers
               top-quality software solutions that help businesses grow and thrive in the
               digital age.
             </p>
