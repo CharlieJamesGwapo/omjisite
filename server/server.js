@@ -31,12 +31,12 @@ app.use('/api/contact', require('./routes/contact'));
 app.use('/api/testimonials', require('./routes/testimonials'));
 app.use('/api/certifications', require('./routes/certifications'));
 
-// Serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-  });
+// Static file serving only when client/dist exists (local full-stack mode)
+const clientDist = path.join(__dirname, '../client/dist')
+const fs = require('fs')
+if (process.env.NODE_ENV === 'production' && fs.existsSync(clientDist)) {
+  app.use(express.static(clientDist))
+  app.get('*', (req, res) => res.sendFile(path.join(clientDist, 'index.html')))
 }
 
 const PORT = process.env.PORT || 5000;
